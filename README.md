@@ -5,7 +5,7 @@
 ## Install
 
 ```sh
-$ go install github.com/cloverrose/unusedinterface/cmd/unusedinterface
+$ go install github.com/cloverrose/unusedinterface/cmd/unusedinterface@latest
 ```
 
 ## Usage
