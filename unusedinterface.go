@@ -36,6 +36,9 @@ func run(pass *analysis.Pass) (interface{}, error) {
 		}
 	})
 
+	if pass.ResultOf[ident.Analyzer] == nil {
+		return nil, nil
+	}
 	m := pass.ResultOf[ident.Analyzer].(ident.Map)
 	for o := range m {
 		if _, ok := ifaces[o.Name()]; ok {
