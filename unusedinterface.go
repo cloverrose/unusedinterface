@@ -29,7 +29,9 @@ func run(pass *analysis.Pass) (interface{}, error) {
 		switch n := n.(type) {
 		case *ast.TypeSpec:
 			if _, ok := n.Type.(*ast.InterfaceType); ok {
-				ifaces[n.Name.Name] = true
+				if n.Name != nil {
+					ifaces[n.Name.Name] = true
+				}
 			}
 		}
 	})
