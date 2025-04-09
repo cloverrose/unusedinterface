@@ -1,0 +1,82 @@
+version: "2"
+linters:
+  enable:
+    - depguard
+    - forbidigo
+  settings:
+    depguard:
+      rules:
+        all:
+          list-mode: lax
+          files:
+            - $all
+          deny:
+            - pkg: github.com/pkg/errors
+              desc: Should be replaced by standard lib errors package
+            - pkg: github.com/stretchr/testify
+              desc: Please use standard library for tests
+            - pkg: io/ioutil
+              desc: 'replaced by io and os packages since Go 1.16: https://tip.golang.org/doc/go1.16#ioutil'
+            - pkg: github.com/golang/mock/
+              desc: replaced by go.uber.org/mock/
+            - pkg: unsafe
+              desc: unsafe package is dangerous to use
+        main:
+          list-mode: lax
+          files:
+            - $all
+            - '!$test'
+          deny:
+            - pkg: reflect
+              desc: Who needs reflection
+            - pkg: go.uber.org/mock/gomock
+              desc: Should not use in main
+            - pkg: github.com/google/go-cmp
+              desc: Should not use in main
+            - pkg: github.com/newmo-oss/testid
+              desc: Should not use in main
+    forbidigo:
+      forbid:
+        - pattern: ^time\.Now.*
+        - pattern: ^context.TODO$
+      exclude-godoc-examples: true
+      analyze-types: true
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - bin
+      - example
+      - third_party$
+      - builtin$
+      - examples$
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+formatters:
+  enable:
+    - gci
+    - gofumpt
+  settings:
+    gci:
+      sections:
+        - standard
+        - default
+        - prefix(github.com/gostaticanalysis)
+        - prefix(github.com/cloverrose)
+        - prefix(github.com/cloverrose/unusedinterface)
+      custom-order: true
+    gofumpt:
+      extra-rules: true
+  exclusions:
+    generated: lax
+    paths:
+      - bin
+      - example
+      - third_party$
+      - builtin$
+      - examples$

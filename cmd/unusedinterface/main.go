@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/cloverrose/unusedinterface"
 	"golang.org/x/tools/go/analysis/unitchecker"
+
+	"github.com/cloverrose/unusedinterface"
 )
 
 func main() { unitchecker.Main(unusedinterface.Analyzer) }

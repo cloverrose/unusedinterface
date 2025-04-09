@@ -3,8 +3,9 @@ package unusedinterface_test
 import (
 	"testing"
 
-	"github.com/cloverrose/unusedinterface"
 	"golang.org/x/tools/go/analysis/analysistest"
+
+	"github.com/cloverrose/unusedinterface"
 )
 
 func Test(t *testing.T) {
