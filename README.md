@@ -35,13 +35,13 @@ Here are reference settings
 
 ```yaml
 # https://golangci-lint.run/plugins/module-plugins/
-version: v1.64.8
+version: v2.3.1
 name: custom-golangci-lint
 destination: bin
 plugins:
   - module: 'github.com/cloverrose/unusedinterface'
     import: 'github.com/cloverrose/unusedinterface'
-    version: v0.2.4
+    version: v0.2.6
 ```
 
 `.golangci.yml`
