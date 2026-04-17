@@ -2,6 +2,7 @@ package unusedinterface
 
 import (
 	"go/ast"
+	"go/types"
 
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/passes/inspect"
@@ -43,6 +44,9 @@ func run(pass *analysis.Pass) (interface{}, error) {
 	m := pass.ResultOf[ident.Analyzer].(ident.Map)
 	for o := range m {
 		if _, ok := ifaces[o.Name()]; ok {
+			if _, isTypeName := o.(*types.TypeName); !isTypeName {
+				continue // ignore parameter or field with same name as interface.
+			}
 			if len(m[o]) == 1 {
 				n := m[o][0]
 				pass.Reportf(n.Pos(), "interface %s is defined but not used within the same package", n.Name)
